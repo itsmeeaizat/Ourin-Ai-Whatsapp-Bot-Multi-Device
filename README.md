@@ -114,4 +114,12 @@ Bagi kamu yang ingin menjalankan bot ini menggunakan panel Pterodactyl, ikuti la
    git clone https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git .
    ```
 
+## About
+Saya adalah Aizat, pengembang bot WhatsApp ini. Jika kamu ingin mengikuti perkembangan atau menghubungi saya, temukan saya di media sosial:
+
+<p align="center">
+  <a href="https://www.tiktok.com/@itsmee_aizat"><img src="https://img.shields.io/badge/TikTok-@itsmee_aizat-black?style=flat-square&logo=tiktok&logoColor=white"></a>
+  <a href="https://www.instagram.com/itsmee_aizat/"><img src="https://img.shields.io/badge/Instagram-@itsmee_aizat-E4405F?style=flat-square&logo=instagram&logoColor=white"></a>
+</p>
+
 Created with ❤️ by itsmeeaizat
