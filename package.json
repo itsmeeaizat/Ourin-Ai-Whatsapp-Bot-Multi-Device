@@ -1,6 +1,6 @@
 {
   "name": "ourin-md",
-  "version": "3.1.0",
+  "version": "15.0.0",
   "description": "WhatsApp Multi-Device Bot dengan sistem plugin modular",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "multi-device",
     "plugin"
   ],
-  "author": "Zann",
+  "author": "Aizat",
   "license": "ISC",
   "type": "module",
   "engines": {
