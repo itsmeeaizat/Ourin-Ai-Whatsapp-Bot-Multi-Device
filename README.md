@@ -18,7 +18,7 @@
 * ⚙️ **Multi-Device Support:** Stabil dan aman menggunakan library Baileys terbaru.
 * 🛠️ **Modular System:** Struktur folder (`plugins`, `case`, `src`) yang rapi dan mudah dikustomisasi.
 
-## 🚀 Cara Instalasi (Termux / VPS)
+## 🚀 Cara Instalasi (Termux / VPS / Panel Pterodactyl)
 ```bash
 git clone [https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git)
 cd Ourin-Ai-Whatsapp-Bot-Multi-Device
