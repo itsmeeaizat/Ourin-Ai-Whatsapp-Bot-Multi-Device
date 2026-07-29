@@ -25,4 +25,16 @@ cd Ourin-Ai-Whatsapp-Bot-Multi-Device
 npm install
 node index.js
 
+## 🚀 Panduan Instalasi di Pterodactyl Panel
+
+Bagi kamu yang ingin menjalankan bot ini menggunakan panel Pterodactyl, ikuti langkah-langkah di bawah ini:
+
+1. **Buat Server Baru:**
+   * Pilih **Egg / Nest Node.js** (pastikan versi minimal Node.js v18 atau v20+).
+   * Atur startup command ke file utama bot (misal `node index.js`).
+2. **Clone Repository (Via Console):**
+   Masuk ke tab **Console** di server Pterodactyl, pastikan server dalam keadaan *Stop*, lalu jalankan perintah ini:
+   ```bash
+   git clone [https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git) .
+
 Created with ❤️ by itsmeeaizat
