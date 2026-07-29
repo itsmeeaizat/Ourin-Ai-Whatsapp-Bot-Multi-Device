@@ -25,19 +25,72 @@ Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
 
 * 🌤️ Fitur Cuaca Otomatis — "Cuaca di Saku": Menyajikan prakiraan cuaca akurat berdasarkan lokasi atau nama kota yang dikirimkan oleh pengguna, lengkap dengan suhu, kelembapan, dan peringatan cuaca sehingga pengguna tidak perlu keluar dari WhatsApp untuk mengecek kondisi terbaru.
 
+  Contoh perintah:
+  ```
+  !cuaca Jakarta
+  !weather Jakarta
+  ```
+
 * 🤖 AI Conversation — "Asisten Percakapan Pintar": Integrasi AI yang mampu memahami konteks percakapan, menjawab pertanyaan, merangkum teks panjang, serta memberikan rekomendasi yang relevan sehingga pengalaman chatting terasa seperti berinteraksi dengan asisten nyata.
+
+  Contoh perintah:
+  ```
+  !ai Siapa presiden Indonesia saat ini?
+  !ask Buatkan ringkasan artikel berikut: <paste teks>
+  ```
 
 * 📥 Media Downloader — "Satu Ketuk, Beres": Mengunduh media dari berbagai platform (video, musik, gambar) dengan satu perintah, otomatis menyesuaikan format/kompresi untuk pengiriman nyaman melalui WhatsApp.
 
+  Contoh perintah:
+  ```
+  !download https://youtu.be/xxxxx
+  !ytmp3 https://youtu.be/xxxxx
+  !ig https://instagram.com/p/xxxxx
+  ```
+
 * 🛡️ Group Management Otomatis — "Admin Cerdas": Fitur otomatis untuk moderasi grup seperti anti-spam, auto-kick pengguna bermasalah, penjadwalan pengumuman, dan pengaturan cepat izin anggota untuk menjaga komunitas tetap rapi.
+
+  Contoh perintah (admin):
+  ```
+  !antispam on
+  !kick @6281234567890
+  !announce "Jangan lupa meeting besok jam 10" 2026-08-01 09:00
+  !setwelcome on
+  ```
 
 * 🔌 Modular Plugin System — "Bangun Sendiri Fitur Baru": Desain plugin yang mudah dimengerti memungkinkan developer menambahkan atau menonaktifkan fitur tanpa mengubah inti aplikasi. Cocok untuk kustomisasi cepat dan eksperimen fitur baru.
 
+  Contoh perintah (developer/admin):
+  ```
+  !plugin enable namaplugin
+  !plugin disable namaplugin
+  ```
+
 * ⚡ Performance & Stabilitas — "Ringan tapi Kuat": Optimasi penggunaan memori dan proses asynchronous membuat bot responsif pada host kelas rendah (VPS/Termux) sekaligus handal untuk deployment di panel seperti Pterodactyl.
+
+  Contoh penggunaan & perintah:
+  ```bash
+  NODE_ENV=production pm2 start index.js --name ourin-bot
+  # atau (dalam chat, untuk admin)
+  !restart
+  ```
 
 * 🔒 Privasi & Multi-Device — "Aman Berkolaborasi": Dukungan Baileys Multi-Device menjaga sesi tetap stabil tanpa harus sering memindai ulang, serta mempertahankan kontrol privasi dan pengelolaan sesi yang lebih baik.
 
+  Contoh perintah (manajemen sesi):
+  ```
+  !session list
+  !session logout <session_id>
+  ```
+
 * 🧩 Tools & Utilities — "Kotak Perangkat Serba Guna": Dilengkapi utilitas mulai dari converter, generator, hingga tools admin yang memudahkan automasi tugas sehari-hari di chat dan grup.
+
+  Contoh perintah:
+  ```
+  !convert png2jpg (reply ke gambar)
+  !shorten https://verylongurl.com/...
+  !qr Buat QR untuk teks ini
+  ```
 
 
 ## 🚀 Cara Instalasi (Termux / VPS / Panel Pterodactyl)
