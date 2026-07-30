@@ -113,7 +113,22 @@ Bagi kamu yang ingin menjalankan bot ini menggunakan panel Pterodactyl, ikuti la
    ```bash
    git clone https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git .
    ```
-![Repo Card](https://github-readme-stats.vercel.app/api/pin/?username=itsmeeaizat&repo=Ourin-Ai-Whatsapp-Bot-Multi-Device&theme=tokyonight)
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 40" width="100%" height="40" preserveAspectRatio="xMinYMid meet">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <g>
+    <text x="0" y="26" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#111">
+      Pesan kamu di sini — Contoh: "Info: Bot aktif setiap hari jam 09:00-21:00"
+    </text>
+    <!-- Animasi: geser dari kanan ke kiri -->
+    <animateTransform attributeName="transform"
+                      attributeType="XML"
+                      type="translate"
+                      from="600 0" to="-600 0"
+                      dur="12s"
+                      repeatCount="indefinite"/>
+  </g>
+</svg>
 
 ## About
 Saya adalah Aizat, pengembang bot WhatsApp ini. Jika kamu ingin mengikuti perkembangan atau menghubungi saya, temukan saya di media sosial:
