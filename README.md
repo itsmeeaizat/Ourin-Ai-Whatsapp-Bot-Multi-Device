@@ -124,7 +124,7 @@ Bagi kamu yang ingin menjalankan bot ini menggunakan panel Pterodactyl, ikuti la
    ```bash
    git clone https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git .
    ```
-
+[![Node.js CI](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/bot-run.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/bot-run.yml)
 
 ## About
 Saya adalah Aizat, pengembang bot WhatsApp ini. Jika kamu ingin mengikuti perkembangan atau menghubungi saya, temukan saya di media sosial:
