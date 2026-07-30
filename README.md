@@ -1,6 +1,6 @@
 <div align="center">
   <h1>🌟 Ourin-Ai WhatsApp Bot MD 🌟</h1>
-  <p><b>Bot WhatsApp Multi-Device berbasis Baileys (Node.js) dengan 1.400+ Fitur & Cuaca Otomatis!</b></p>
+  <p><b>🚀 Bot WhatsApp Multi-Device berbasis Baileys (Node.js) dengan 1.400+ Fitur & Cuaca Otomatis!</b></p>
 </div>
 
 <p align="center">
