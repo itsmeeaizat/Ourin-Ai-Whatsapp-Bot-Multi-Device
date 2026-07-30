@@ -13,6 +13,7 @@ import {
   stopLokerJob,
 } from "../../src/lib/ourin-loker-scheduler.js";
 import { getDatabase } from "../../src/lib/ourin-database.js";
+import config from "../../config.js";
 
 const pluginConfig = {
   name: "loker",
@@ -50,18 +51,22 @@ function help(m) {
       "*PENGATURAN INFO LOKER OTOMATIS*",
       "",
       `• \`${m.prefix}loker aktif\``,
-      "  Aktifkan broadcast loker di grup ini.",
+      "  Aktifkan broadcast loker di grup ini (akan meminta pilihan mode).",
+      "",
+      `• \`${m.prefix}loker pilih <opsi>\``,
+      "  Pilih mode setelah menjalankan `aktif`. Opsi: group | group_channel | private",
+      "  Contoh: `.loker pilih group`",
       "",
       `• \`${m.prefix}loker nonaktif\``,
       "  Matikan broadcast loker untuk grup ini.",
       "",
       `• \`${m.prefix}loker kata kunci [kata...]\``,
       "  Set filter kata kunci (pisah spasi).",
-      `  Contoh: \`${m.prefix}loker kata kunci developer python\``,
+      `  Contoh: \`${m.prefix}loker kata kunci developer python\`",
       "",
       `• \`${m.prefix}loker kategori [nama]\``,
       "  Filter berdasarkan kategori Remotive.",
-      `  Opsi: ${CATEGORY_OPTIONS.slice(0, 6).join(", ")}, dst.`,
+      `  Opsi: ${CATEGORY_OPTIONS.slice(0, 6).join(", ")}, dst.",
       `  Contoh: \`${m.prefix}loker kategori software-dev\``,
       "",
       `• \`${m.prefix}loker jadwal 08:00 13:00 20:00\``,
@@ -108,32 +113,99 @@ async function handler(m) {
 
   if (action === "help" || action === "menu") return help(m);
 
-  // ── AKTIF ────────────────────────────────────────────────────────────────
+  // ── AKTIF (menu pilihan mode) ─────────────────────────────────────────
   if (action === "aktif" || action === "on" || action === "enable") {
     if (!m.isGroup) {
       return m.reply("⚠️ Command ini hanya bisa dipakai di dalam grup.");
     }
-    const jid = m.chat;
-    const settings = updateLokerSettings((cur) => {
-      const targets = Array.isArray(cur.targets) ? [...cur.targets] : [];
-      if (!targets.includes(jid)) targets.push(jid);
-      return { ...cur, enabled: true, targets };
-    });
-    startLokerJobs(settings);
-    return m.reply(
-      [
-        "✅ *Info loker otomatis DIAKTIFKAN untuk grup ini!*",
-        "",
-        `Jadwal: ${formatSchedule(settings.schedules)} WIB`,
-        `Filter: ${settings.keywords.length ? settings.keywords.join(", ") : "semua kategori"}`,
-        `Maks per broadcast: ${settings.maxPerBroadcast} loker`,
-        "",
-        `Gunakan \`${m.prefix}loker test\` untuk coba sekarang.`,
-      ].join("\n")
-    );
+
+    // Prompt pilihan mode. Beberapa client/library mungkin mendukung buttons —
+    // tapi untuk kompatibilitas, tampilkan opsi yang bisa dipilih via command
+    // serta instruksi teks. Owner harus menjalankan `.loker pilih <opsi>`.
+
+    const prompt = [
+      "🔧 Pilih mode Loker Otomatis yang ingin diaktifkan:",
+      "",
+      "1. Buat Grup saja — kirim ke grup ini saja.",
+      "   → Ketik: `.loker pilih group`",
+      "",
+      "2. Grup & Saluran — kirim ke grup ini + saluran (jika disetel).",
+      "   → Ketik: `.loker pilih group_channel`",
+      "",
+      "3. Pesan Privat ke saya — hanya pengaktif yang menerima notifikasi via DM.",
+      "   → Ketik: `.loker pilih private`",
+      "",
+      "Contoh: `.loker pilih group`",
+    ].join("\n");
+
+    return m.reply(prompt);
   }
 
-  // ── NONAKTIF ─────────────────────────────────────────────────────────────
+  // ── PILIH MODE setelah prompt ─────────────────────────────────────────
+  if (action === "pilih" || action === "mode") {
+    const choice = (args[0] || "").toLowerCase();
+    const valid = ["group", "group_channel", "groupchannel", "private", "1", "2", "3"];
+    if (!valid.includes(choice) && !["group","group_channel","private"].includes(choice)) {
+      return m.reply("❌ Opsi tidak dikenali. Gunakan: group | group_channel | private");
+    }
+
+    // map numeric shortcuts
+    let mode = choice;
+    if (choice === "1") mode = "group";
+    if (choice === "2") mode = "group_channel";
+    if (choice === "3") mode = "private";
+    if (choice === "groupchannel") mode = "group_channel";
+
+    const jid = m.chat; // grup tempat perintah dipanggil
+    const sender = m.sender; // pengaktif
+
+    // update settings accordingly
+    const settings = updateLokerSettings((cur) => {
+      const next = { ...cur };
+      next.enabled = true;
+      const targets = Array.isArray(next.targets) ? [...next.targets] : [];
+
+      if (mode === "group") {
+        if (!targets.includes(jid)) targets.push(jid);
+      } else if (mode === "group_channel") {
+        if (!targets.includes(jid)) targets.push(jid);
+        // gunakan saluran dari config jika ada, jika tidak, cukup grup saja
+        const channelId = config.saluran?.id || null;
+        if (channelId && !targets.includes(channelId)) targets.push(channelId);
+      } else if (mode === "private") {
+        // gunakan pengaktif sebagai target pribadi
+        if (!targets.includes(sender)) targets.push(sender);
+        // jika command dijalankan di grup, optional tambah notifikasi di grup bahwa pengaktif memilih private
+      }
+
+      next.targets = targets;
+      return next;
+    });
+
+    startLokerJobs(settings);
+
+    // Reply confirmation
+    if (mode === "group") {
+      return m.reply(
+        `✅ Loker otomatis diaktifkan (mode: Grup). Broadcast akan dikirim ke grup ini (${jid}).\nJadwal: ${formatSchedule(settings.schedules)} WIB`
+      );
+    }
+
+    if (mode === "group_channel") {
+      const channelId = config.saluran?.id || "(tidak disetel)";
+      return m.reply(
+        `✅ Loker otomatis diaktifkan (mode: Grup & Saluran).\nGrup: ${jid}\nSaluran: ${channelId}\nJadwal: ${formatSchedule(settings.schedules)} WIB`
+      );
+    }
+
+    if (mode === "private") {
+      return m.reply(
+        `✅ Loker otomatis diaktifkan (mode: Pesan Privat). Kamu (${sender}) akan menerima notifikasi loker via DM.`
+      );
+    }
+  }
+
+  // ── NONAKTIF ──────────────────────────────────────────────────────────
   if (action === "nonaktif" || action === "off" || action === "disable") {
     if (!m.isGroup) {
       return m.reply("⚠️ Command ini hanya bisa dipakai di dalam grup.");
@@ -153,7 +225,7 @@ async function handler(m) {
     );
   }
 
-  // ── KATA KUNCI ────────────────────────────────────────────────────────────
+  // ── KATA KUNCI ─────────────────────────────────────────────────────────
   if (action === "kata" || action === "keyword" || action === "filter") {
     // "kata kunci" → args sudah tanpa "kata", cek apakah arg[0] === "kunci"
     if (action === "kata" && args[0]?.toLowerCase() === "kunci") args.shift();
@@ -161,124 +233,4 @@ async function handler(m) {
     const settings = updateLokerSettings((cur) => ({ ...cur, keywords }));
     return m.reply(
       keywords.length
-        ? `✅ Kata kunci loker diset: _${keywords.join(", ")}_`
-        : "✅ Filter kata kunci dihapus (semua loker akan dikirim)."
-    );
-  }
-
-  // ── KATEGORI ──────────────────────────────────────────────────────────────
-  if (action === "kategori" || action === "category") {
-    const cat = args[0]?.toLowerCase() || "";
-    if (!cat) {
-      return m.reply(
-        `Kategori tersedia:\n${CATEGORY_OPTIONS.join(", ")}\n\nContoh: \`${m.prefix}loker kategori software-dev\``
-      );
-    }
-    if (!CATEGORY_OPTIONS.includes(cat)) {
-      return m.reply(
-        `❌ Kategori tidak dikenal: _${cat}_\n\nOpsi: ${CATEGORY_OPTIONS.join(", ")}`
-      );
-    }
-    const settings = updateLokerSettings((cur) => ({ ...cur, categories: [cat] }));
-    return m.reply(`✅ Kategori loker diset: _${cat}_`);
-  }
-
-  // ── JADWAL ────────────────────────────────────────────────────────────────
-  if (action === "jadwal" || action === "schedule" || action === "jam") {
-    const schedules = buildSchedules(args);
-    if (!schedules) {
-      return m.reply(
-        `Format salah.\nContoh: \`${m.prefix}loker jadwal 08:00 13:00 20:00\``
-      );
-    }
-    const settings = updateLokerSettings((cur) => ({ ...cur, schedules }));
-    startLokerJobs(settings);
-    return m.reply(
-      `✅ Jadwal loker diperbarui:\n${formatSchedule(schedules)} WIB`
-    );
-  }
-
-  // ── JUMLAH ────────────────────────────────────────────────────────────────
-  if (action === "jumlah" || action === "max" || action === "limit") {
-    const n = parseInt(args[0], 10);
-    if (isNaN(n) || n < 1 || n > 10) {
-      return m.reply(
-        `❌ Masukkan angka antara 1–10.\nContoh: \`${m.prefix}loker jumlah 5\``
-      );
-    }
-    updateLokerSettings((cur) => ({ ...cur, maxPerBroadcast: n }));
-    return m.reply(`✅ Jumlah loker per broadcast diset: *${n}*`);
-  }
-
-  // ── TEST ──────────────────────────────────────────────────────────────────
-  if (action === "test" || action === "cek" || action === "preview") {
-    await m.react("🔍");
-    try {
-      const settings = getLokerStatus();
-      const db = getDatabase();
-      const jobs = await fetchNewJobs({
-        sources: settings.sources,
-        keywords: settings.keywords,
-        categories: settings.categories,
-        limit: settings.maxPerBroadcast,
-        sentIds: {}, // Preview tidak filter history
-      });
-
-      if (!jobs.length) {
-        await m.react("❌");
-        return m.reply(
-          "❌ Tidak ada loker ditemukan.\nCoba ubah kata kunci atau kategori."
-        );
-      }
-
-      const sources = [...new Set(jobs.map((j) => j.source))].join(", ");
-      const message = formatLokerMessage(jobs, {
-        label: "Preview / Test",
-        keywords: settings.keywords,
-        source: sources,
-      });
-
-      await m.react("✅");
-      return m.reply(message);
-    } catch (err) {
-      await m.react("❌");
-      return m.reply(`❌ Gagal fetch loker: ${err.message}`);
-    }
-  }
-
-  // ── RESET CACHE ───────────────────────────────────────────────────────────
-  if (action === "reset" || action === "clearcache") {
-    const db = getDatabase();
-    db.setSetting("lokerSentIds", {});
-    return m.reply(
-      "✅ Cache loker yang sudah terkirim direset.\nBroadcast berikutnya akan mengirim ulang loker terbaru."
-    );
-  }
-
-  // ── STATUS ────────────────────────────────────────────────────────────────
-  if (action === "status" || action === "info") {
-    const settings = getLokerStatus();
-    const db = getDatabase();
-    const sentIds = getSentIds(db);
-    return m.reply(
-      [
-        "*STATUS INFO LOKER OTOMATIS*",
-        "",
-        `Status     : ${settings.enabled ? "✅ Aktif" : "❌ Nonaktif"}`,
-        `Target grup: ${settings.targets.length} grup`,
-        `Jadwal     : ${formatSchedule(settings.schedules)} WIB`,
-        `Kata kunci : ${settings.keywords.length ? settings.keywords.join(", ") : "semua"}`,
-        `Kategori   : ${settings.categories.length ? settings.categories.join(", ") : "semua"}`,
-        `Maks/jadwal: ${settings.maxPerBroadcast} loker`,
-        `Sumber     : ${settings.sources.join(", ")}`,
-        `ID tersimpan: ${Object.keys(sentIds).length} (maks 7 hari)`,
-        "",
-        "Gunakan `.loker help` untuk panduan.",
-      ].join("\n")
-    );
-  }
-
-  return help(m);
-}
-
-export { pluginConfig as config, handler };
+        ? `✅ Kata kunci loker diset: _${keywords.join(", 
