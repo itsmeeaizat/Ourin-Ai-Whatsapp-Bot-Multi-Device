@@ -15,8 +15,10 @@
 
 Build:
 [![Node.js CI](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/bot-run.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/bot-run.yml)
+
 Repo Stats:
 [![Keep Alive](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/keep-alive.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/keep-alive.yml)
+
 Auto Sync:
 [![Auto Sync](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/auto-sync.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/auto-sync.yml)
 
