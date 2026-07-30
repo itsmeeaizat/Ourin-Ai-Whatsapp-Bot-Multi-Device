@@ -1,5 +1,5 @@
 /**
- * ourin-loker-scheduler.js
+ * src/lib/ourin-loker-scheduler.js
  * Scheduler loker otomatis dan helper fetch loker.
  * Sumber: Remotive API + Arbeitnow API (gratis, tanpa API key).
  */
@@ -14,7 +14,11 @@ const DEFAULT_TIMEOUT_MS = 15_000;
 const SENT_JOB_TTL_DAYS = 7; // ID loker yang sudah dikirim disimpan selama 7 hari
 
 let sock = null;
-let lokerJob = null;
+// Simpan semua CronJob yang dibuat agar bisa dihentikan semua
+let lokerJobs = [];
+
+// local cached fetch implementation (resolved on demand)
+let fetchFn = null;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SETTINGS
@@ -77,30 +81,77 @@ function getSentIds(db) {
   for (const [id, ts] of Object.entries(raw)) {
     if (ts > cutoff) cleaned[id] = ts;
   }
+  // Simpan cleaned kembali jika ada perubahan (agar DB tidak terus menumpuk)
+  try {
+    if (Object.keys(cleaned).length !== Object.keys(raw).length) {
+      db.setSetting("lokerSentIds", cleaned);
+    }
+  } catch (err) {
+    logger.warn("LOKER", `Gagal menyimpan cleaned sentIds: ${err.message}`);
+  }
   return cleaned;
 }
 
 function markSent(db, ids) {
+  // Merge sederhana: baca current, tambahkan ids, simpan
   const current = getSentIds(db);
   const now = Date.now();
   for (const id of ids) current[id] = now;
-  db.setSetting("lokerSentIds", current);
+  try {
+    db.setSetting("lokerSentIds", current);
+  } catch (err) {
+    logger.warn("LOKER", `Gagal menyimpan sentIds setelah markSent: ${err.message}`);
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // FETCH LOKER
 // ─────────────────────────────────────────────────────────────────────────────
 
-async function fetchWithTimeout(url, timeoutMs = DEFAULT_TIMEOUT_MS) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, { signal: controller.signal });
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
-    return await res.json();
-  } finally {
-    clearTimeout(timer);
+async function ensureFetch() {
+  if (fetchFn) return fetchFn;
+  if (globalThis.fetch) {
+    fetchFn = globalThis.fetch.bind(globalThis);
+    return fetchFn;
   }
+  try {
+    const nf = await import('node-fetch');
+    fetchFn = nf.default || nf;
+    // don't force global override here to avoid side effects in other parts
+    logger.info('LOKER', 'node-fetch di-load sebagai fallback fetchFn');
+    return fetchFn;
+  } catch (err) {
+    logger.warn('LOKER', `node-fetch import failed: ${err.message}`);
+    throw new Error('No fetch implementation available. Install node-fetch or run on Node 18+.');
+  }
+}
+
+async function fetchWithTimeout(url, timeoutMs = DEFAULT_TIMEOUT_MS) {
+  const fetchImpl = await ensureFetch();
+
+  // If AbortController is available, use it to actually abort the request on timeout
+  const AbortCtr = globalThis.AbortController;
+  if (AbortCtr) {
+    const controller = new AbortCtr();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetchImpl(url, { signal: controller.signal });
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
+      return await res.json();
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  // Fallback: Promise.race timeout (won't abort underlying request)
+  return await Promise.race([
+    (async () => {
+      const res = await fetchImpl(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
+      return await res.json();
+    })(),
+    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), timeoutMs)),
+  ]);
 }
 
 /**
@@ -123,8 +174,14 @@ function normalizeRemotive(job) {
 }
 
 function normalizeArbeitnow(job) {
+  // Fallback id jika slug kosong: coba url, atau kombinasi fields, lalu sanitize
+  const fallback = job.slug || job.url || `${job.company_name || ''}-${job.title || ''}-${job.created_at || ''}`;
+  const rawId = String(fallback || '').trim();
+  const safeId = rawId
+    ? rawId.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-]/g, '')
+    : `auto_${Date.now()}`;
   return {
-    id: `arbeitnow_${job.slug}`,
+    id: `arbeitnow_${safeId}`,
     title: job.title || "-",
     company: job.company_name || "-",
     location: job.remote ? "Remote" : (job.location || "-"),
@@ -194,7 +251,7 @@ async function fetchNewJobs({ sources, keywords, categories, limit, sentIds }) {
   }
 
   // Dedup berdasar ID & filter yang sudah terkirim
-  const seen = new Set(Object.keys(sentIds));
+  const seen = new Set(Object.keys(sentIds || {}));
   const fresh = [];
   for (const job of allJobs) {
     if (!seen.has(job.id)) {
@@ -266,13 +323,14 @@ function formatLokerMessage(jobs, { label = "Update", keywords = [], source = ""
 
   const footer = [
     "",
-    "─────────────────────────",
+    "────────────────────────~",
     `📌 Ditemukan *${jobs.length}* lowongan baru`,
     "💡 Cek manual: _.ayokerja [kata kunci]_",
     "🤖 _Ourin MD — Info Loker Otomatis_",
   ].join("\n");
 
-  return `${header}\n\n${body}${footer}`;
+  // Tambahkan newline pemisah antara body dan footer supaya tidak menyatu
+  return `${header}\n\n${body}\n\n${footer}`;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -344,9 +402,15 @@ async function sendLokerUpdate(scheduleLabel) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function stopLokerJob() {
-  if (lokerJob) {
-    lokerJob.stop();
-    lokerJob = null;
+  if (Array.isArray(lokerJobs) && lokerJobs.length) {
+    for (const job of lokerJobs) {
+      try {
+        job.stop();
+      } catch (err) {
+        logger.warn("LOKER", `Gagal stop CronJob: ${err.message}`);
+      }
+    }
+    lokerJobs = [];
   }
 }
 
@@ -366,8 +430,8 @@ function startLokerJobs(settings) {
         true,
         settings.timezone || TZ
       );
-      // Simpan semua job (gunakan satu WeakMap agar bisa multi-schedule)
-      if (!lokerJob) lokerJob = job;
+      // Simpan setiap job agar bisa dihentikan nanti
+      lokerJobs.push(job);
       logger.info("LOKER", `Jadwal [${label}] → ${cron} (${settings.timezone})`);
     } catch (err) {
       logger.error("LOKER", `Gagal membuat CronJob untuk [${label}]: ${err.message}`);
