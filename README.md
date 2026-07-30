@@ -19,11 +19,12 @@
 * 📥 **Media Downloader:** Unduh video dan musik dari berbagai platform dengan cepat.
 * ⚙️ **Multi-Device Support:** Stabil dan aman menggunakan library Baileys terbaru.
 * 🛠️ **Modular System:** Struktur folder (`plugins`, `case`, `src`) yang rapi dan mudah dikustomisasi.
+* 💼 **Pencarian Loker:** Cari lowongan pekerjaan berdasarkan lokasi, kata kunci, atau kategori langsung dari chat — menampilkan ringkasan, perusahaan, lokasi, dan link lamaran.
 
 ## 🌟 Fitur Terbaik — Deskripsi Unik
 Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
 
-* 🌤️ Fitur Cuaca Otomatis — "Cuaca di Saku": Menyajikan prakiraan cuaca akurat berdasarkan lokasi atau nama kota yang dikirimkan oleh pengguna, lengkap dengan suhu, kelembapan, dan peringatan cuaca sehingga pengguna tidak perlu keluar dari WhatsApp untuk mengecek kondisi terbaru.
+* 🌤️ Fitur Cuaca Otomatis — "Cuaca di Saku": Menyajikan prakiraan cuaca akurat berdasarkan lokasi atau nama kota yang dikirimkan oleh pengguna, lengkap dengan suhu, kelembapan, dan peringatan cuaca penting.
 
   Contoh perintah:
   ```
@@ -31,7 +32,7 @@ Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
   !weather Jakarta
   ```
 
-* 🤖 AI Conversation — "Asisten Percakapan Pintar": Integrasi AI yang mampu memahami konteks percakapan, menjawab pertanyaan, merangkum teks panjang, serta memberikan rekomendasi yang relevan sehingga pengalaman chatting terasa seperti berinteraksi dengan asisten nyata.
+* 🤖 AI Conversation — "Asisten Percakapan Pintar": Integrasi AI yang mampu memahami konteks percakapan, menjawab pertanyaan, merangkum teks panjang, serta memberikan rekomendasi yang relevan sehingga percakapan terasa natural.
 
   Contoh perintah:
   ```
@@ -48,7 +49,7 @@ Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
   !ig https://instagram.com/p/xxxxx
   ```
 
-* 🛡️ Group Management Otomatis — "Admin Cerdas": Fitur otomatis untuk moderasi grup seperti anti-spam, auto-kick pengguna bermasalah, penjadwalan pengumuman, dan pengaturan cepat izin anggota untuk menjaga komunitas tetap rapi.
+* 🛡️ Group Management Otomatis — "Admin Cerdas": Fitur otomatis untuk moderasi grup seperti anti-spam, auto-kick pengguna bermasalah, penjadwalan pengumuman, dan pengaturan cepat izin anggota untuk menjaga ketertiban grup.
 
   Contoh perintah (admin):
   ```
@@ -58,7 +59,7 @@ Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
   !setwelcome on
   ```
 
-* 🔌 Modular Plugin System — "Bangun Sendiri Fitur Baru": Desain plugin yang mudah dimengerti memungkinkan developer menambahkan atau menonaktifkan fitur tanpa mengubah inti aplikasi. Cocok untuk kustomisasi cepat dan eksperimen fitur baru.
+* 🔌 Modular Plugin System — "Bangun Sendiri Fitur Baru": Desain plugin yang mudah dimengerti memungkinkan developer menambahkan atau menonaktifkan fitur tanpa mengubah inti aplikasi. Cocok untuk kolaborasi dan kustomisasi.
 
   Contoh perintah (developer/admin):
   ```
@@ -66,7 +67,7 @@ Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
   !plugin disable namaplugin
   ```
 
-* ⚡ Performance & Stabilitas — "Ringan tapi Kuat": Optimasi penggunaan memori dan proses asynchronous membuat bot responsif pada host kelas rendah (VPS/Termux) sekaligus handal untuk deployment di panel seperti Pterodactyl.
+* ⚡ Performance & Stabilitas — "Ringan tapi Kuat": Optimasi penggunaan memori dan proses asynchronous membuat bot responsif pada host kelas rendah (VPS/Termux) sekaligus handal untuk deployment di server produksi.
 
   Contoh penggunaan & perintah:
   ```bash
@@ -75,7 +76,7 @@ Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
   !restart
   ```
 
-* 🔒 Privasi & Multi-Device — "Aman Berkolaborasi": Dukungan Baileys Multi-Device menjaga sesi tetap stabil tanpa harus sering memindai ulang, serta mempertahankan kontrol privasi dan pengelolaan sesi yang lebih baik.
+* 🔒 Privasi & Multi-Device — "Aman Berkolaborasi": Dukungan Baileys Multi-Device menjaga sesi tetap stabil tanpa harus sering memindai ulang, serta mempertahankan kontrol privasi dan pengelolaan sesi yang mudah.
 
   Contoh perintah (manajemen sesi):
   ```
@@ -90,6 +91,16 @@ Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
   !convert png2jpg (reply ke gambar)
   !shorten https://verylongurl.com/...
   !qr Buat QR untuk teks ini
+  ```
+
+* 💼 Pencarian Loker — "Cari Kerja Mudah": Fitur terbaru yang memungkinkan pengguna mencari lowongan pekerjaan langsung dari WhatsApp. Cari berdasarkan kota, kata kunci, atau kategori; tampilkan ringkasan pekerjaan, nama perusahaan, lokasi, dan link lamaran. Cocok untuk pengguna yang butuh update cepat soal lowongan.
+
+  Contoh perintah:
+  ```
+  !loker Jakarta
+  !loker frontend remote
+  !loker detail 12345
+  !apply 12345
   ```
 
 
