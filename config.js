@@ -9,7 +9,7 @@ const config = {
   },
 
   owner: {
-    name: "Zann", // Nama owner
+    name: "Aizat", // Nama owner
     number: ["628xxxxxxxx"], // Format: 628xxx (tanpa + atau 0)
   },
 
@@ -19,9 +19,9 @@ const config = {
   },
 
   bot: {
-    name: "𝗢𝗨𝗥𝗜𝗡", // Nama bot
-    version: "3.1", // Versi bot
-    developer: "Zann", // Nama developer
+    name: "Ourin Ai Multi Device", // Nama bot
+    version: "15.0.0", // Versi bot
+    developer: "Aizat", // Nama developer
   },
 
   assets: {
@@ -100,14 +100,14 @@ const config = {
   },
 
   sticker: {
-    packname: "𝗢𝗨𝗥𝗜𝗡", // Nama pack sticker
-    author: "Zann", // Author sticker
+    packname: "Ourin Ai Multi Device", // Nama pack sticker
+    author: "Aizat", // Author sticker
   },
 
   saluran: {
-    id: "120363400911374213@newsletter", // ID saluran (contoh: 120363xxx@newsletter)                          // ID saluran (contoh: 120363xxx@newsletter)
+    id: "@newsletter", // ID saluran (contoh: 120363xxx@newsletter)                          // ID saluran (contoh: 120363xxx@newsletter)
     name: "Join saluran resmi ourin", // Nama saluran
-    link: "https://whatsapp.com/channel/0029VbB37bgBfxoAmAlsgE0t", // Link saluran
+    link: "https://whatsapp.com/channel/", // Link saluran
   },
 
   groupProtection: {
@@ -313,7 +313,7 @@ const config = {
     neoxr: "Milik-Bot-OurinMD",
     fgsi: "fgsiapi-20c1605c-6d",
     google: "AIzaSyAS-KiW0SrwiYKwexeBcGPijBVHFg2R_vo",
-    groq: "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", // API Key Groq untuk fitur transkrip (gratis di console.groq.com)
+    groq: "", // API Key Groq untuk fitur transkrip (gratis di console.groq.com)
     betabotz: "Btz-67YfP",
     // kalian bisa daftar di https://covenant.sbs, dan ambil apikeynya
     covenant: "cov_live_bb660c9e5f735e46d808b7ae362914cfe35c2936739ee2b2",
