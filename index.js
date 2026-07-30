@@ -350,8 +350,19 @@ async function main() {
           initSahurCron(sock);
         } catch { }
         try {
-          startOrderPoller(sock);
-        } catch { }
+          const { startOrderPoller } = await import("./src/lib/ourin-order-poller.js");
+          if (typeof startOrderPoller === "function") {
+            try {
+              startOrderPoller(sock);
+            } catch (e) {
+              logger.warn("ORDER", `startOrderPoller failed during start: ${e.message}`);
+            }
+          } else {
+            logger.warn("ORDER", "startOrderPoller not exported or not a function");
+          }
+        } catch (e) {
+          logger.warn("ORDER", `startOrderPoller unavailable: ${e.message}`);
+        }
         try {
           const { startOtpPoller: _startOtp } =
             await import("./src/lib/ourin-otp-poller.js");
