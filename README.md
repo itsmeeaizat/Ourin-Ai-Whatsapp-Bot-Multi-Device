@@ -4,9 +4,9 @@
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-3.0.1-orange?style=flat-square&logo=git&logoColor=white">
+  <img src="https://img.shields.io/badge/Version-15.0.0-orange?style=flat-square&logo=git&logoColor=white">
   <img src="https://img.shields.io/badge/Total_Features-1400%2B-blue?style=flat-square&logo=fire">
-  <img src="https://img.shields.io/badge/Node.js-Ready-green?style=flat-square&logo=node.js">
+  <img src="https://img.shields.io/badge/Node.js-20+-green?style=flat-square&logo=node.js">
   <img src="https://img.shields.io/badge/Baileys-MultiDevice-blue?style=flat-square&logo=whatsapp">
   <img src="https://img.shields.io/badge/Status-Active-success?style=flat-square">
 </p>
