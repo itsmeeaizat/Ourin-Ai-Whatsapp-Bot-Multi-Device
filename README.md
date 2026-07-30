@@ -13,6 +13,16 @@
 
 ---
 
+Build:
+[![Node.js CI](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/bot-run.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/bot-run.yml)
+Repo Stats:
+[![Keep Alive](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/keep-alive.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/keep-alive.yml)
+Auto Sync:
+[![Auto Sync](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/auto-sync.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/auto-sync.yml)
+
+
+---
+
 ## ✨ Fitur Unggulan
 * 🌤️ **Fitur Cuaca Otomatis:** Cek informasi prakiraan cuaca real-time langsung dari dalam chat WhatsApp.
 * 🤖 **1.400+ Total Fitur:** Koleksi fitur super lengkap mulai dari AI, Downloader, Game, RPG, Tools, hingga Group Management.
@@ -124,12 +134,6 @@ Bagi kamu yang ingin menjalankan bot ini menggunakan panel Pterodactyl, ikuti la
    ```bash
    git clone https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git .
    ```
-Build:
-[![Node.js CI](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/bot-run.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/bot-run.yml)
-Repo Stats:
-[![Keep Alive](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/keep-alive.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/keep-alive.yml)
-Auto Sync:
-[![Auto Sync](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/auto-sync.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/auto-sync.yml)
 
 ## About
 Saya adalah Aizat, pengembang bot WhatsApp ini. Jika kamu ingin mengikuti perkembangan atau menghubungi saya, temukan saya di media sosial:
