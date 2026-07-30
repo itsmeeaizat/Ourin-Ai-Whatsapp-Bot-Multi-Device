@@ -10,9 +10,7 @@ import {
   fetchArbeitnow,
   formatLokerMessage,
   getLokerStatus,
-  getSentIds,
 } from "../../src/lib/ourin-loker-scheduler.js";
-import { getDatabase } from "../../src/lib/ourin-database.js";
 
 const pluginConfig = {
   name: "ayokerja",
@@ -79,8 +77,6 @@ async function handler(m) {
 
   try {
     const settings = getLokerStatus();
-    const db = getDatabase();
-    const sentIds = getSentIds(db);
 
     // Merge keyword dari settings + keyword dari user
     const mergedKeywords = keywords.length
@@ -106,38 +102,4 @@ async function handler(m) {
           "❌ *Lowongan tidak ditemukan*",
           "",
           keywords.length
-            ? `Tidak ada loker untuk kata kunci: _${keywords.join(", ")}_`
-            : "Tidak ada loker tersedia saat ini.",
-          "",
-          "Coba kata kunci lain:",
-          "`" + m.prefix + "ayokerja developer`",
-          "`" + m.prefix + "ayokerja design`",
-          "`" + m.prefix + "ayokerja marketing`",
-        ].join("\n")
-      );
-    }
-
-    const sources = [...new Set(jobs.map((j) => j.source))].join(", ");
-    const message = formatLokerMessage(jobs, {
-      label: keywords.length ? `Pencarian: ${keywords.join(", ")}` : "Loker Terbaru",
-      keywords: mergedKeywords,
-      source: sources,
-    });
-
-    await m.react("✅");
-    return m.reply(message);
-  } catch (error) {
-    await m.react("❌");
-    return m.reply(
-      [
-        "❌ *Gagal mengambil data lowongan*",
-        "",
-        `> ${error.message}`,
-        "",
-        `Coba lagi: \`${m.prefix}ayokerja\``,
-      ].join("\n")
-    );
-  }
-}
-
-export { pluginConfig as config, handler };
+            ? `Tidak ada loker untuk kata kunci: _${keywords.join(", 
