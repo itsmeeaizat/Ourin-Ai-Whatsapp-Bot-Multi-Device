@@ -93,7 +93,7 @@ Berikut deskripsi singkat yang menonjolkan keunikan fitur-fitur terbaik bot ini:
   ```
 
 
-## 🚀 Cara Instalasi (Termux / VPS / Panel Pterodactyl)
+## 🚀 Cara Instalasi Termux, VPS
 ```bash
 git clone https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device.git
 cd Ourin-Ai-Whatsapp-Bot-Multi-Device
