@@ -2,8 +2,11 @@ name: Keep Alive
 
 on:
   schedule:
-    - cron: '0 0 */5 * *' # Berjalan otomatis setiap 5 hari sekali
+    - cron: '0 0 */5 * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   ping:
@@ -11,9 +14,11 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
+      
     - name: Send dummy commit / ping
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "actions@github.com"
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         git commit --allow-empty -m "Keep-alive: Refresh repository status"
         git push
