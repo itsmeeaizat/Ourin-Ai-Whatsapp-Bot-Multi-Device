@@ -160,7 +160,8 @@ Saya adalah Aizat, pengembang bot WhatsApp ini. Jika kamu ingin mengikuti perkem
 
 Sponsored:
 <p align="center">
-  <img src="https://img.shields.io/badge/OpenAI-412991?style=flat-square&logo=openai&logoColor=white">
+  <img src="https://img.shields.io/badge/Replit%20AI-F26207?style=flat-square&logo=replit&logoColor=white">
   <img src="https://img.shields.io/badge/GitHub%20Copilot-24292e?style=flat-square&logo=githubcopilot&logoColor=white">
   <img src="https://img.shields.io/badge/Google%20Gemini-8E75B2?style=flat-square&logo=googlegemini&logoColor=white">
 </p>
+
