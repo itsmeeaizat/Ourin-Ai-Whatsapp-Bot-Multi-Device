@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 22
 
     - name: Install Project Dependencies
       run: |
@@ -30,8 +30,8 @@ jobs:
       run: |
         echo "=== MEMULAI PEMINDAIAN SCRIPT BOT ==="
         
-        # Mengecek semua file .js apakah ada error sintaks dasar
-        find . -name "*.node_modules" -prune -o -name "*.js" | while read file; do
+        # Mengecek file .js utama tanpa melewati folder node_modules secara aman
+        find . -path "./node_modules" -prune -o -name "*.js" -print | while read file; do
           node -c "$file" || exit 1
         done
         
@@ -39,4 +39,4 @@ jobs:
     
     - name: Basic Code Quality Check (Optional Linter)
       run: |
-        npx eslint . --ext .js || echo "Peringatan: Ada beberapa gaya penulisan yang tidak standar, tapi file tetap bisa jalan."
+        npx eslint . || echo "Peringatan: Ada beberapa gaya penulisan yang tidak standar, tapi file tetap bisa jalan."
