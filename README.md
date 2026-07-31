@@ -25,6 +25,9 @@ Auto Sync:
 Scan Bug & Error:
 [![Scan WhatsApp Bot Bugs & Errors](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/whatsapp-bot-scanner.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/whatsapp-bot-scanner.yml)
 
+Scan Bug & Error (Mode Deep):
+[![Detailed Bot Error & Bug Scanner](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml)
+
 ---
 
 ## ✨ Fitur Unggulan
