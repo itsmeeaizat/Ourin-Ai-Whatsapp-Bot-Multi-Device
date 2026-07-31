@@ -158,10 +158,9 @@ Saya adalah Aizat, pengembang bot WhatsApp ini. Jika kamu ingin mengikuti perkem
 <!-- CI retrigger: 2026-07-30T12:17:05Z (copilot) -->
 
 
-Sponsored:
-<p align="center">
+<div align="center">
+  <p><b>Sponsored & Powered by:</b></p>
   <img src="https://img.shields.io/badge/Replit%20AI-F26207?style=flat-square&logo=replit&logoColor=white">
   <img src="https://img.shields.io/badge/GitHub%20Copilot-24292e?style=flat-square&logo=githubcopilot&logoColor=white">
   <img src="https://img.shields.io/badge/Google%20Gemini-8E75B2?style=flat-square&logo=googlegemini&logoColor=white">
-</p>
-
+</div>
