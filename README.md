@@ -20,10 +20,10 @@ Repo Stats:
 ![Keep Alive](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/keep-alive.yaml/badge.svg)
 
 Auto Sync:
-![Auto Sync](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/auto-sync.yml/badge.svg)
+![Auto Sync](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/auto-sync.yaml/badge.svg)
 
 Scan Bug & Error:
-[![Scan WhatsApp Bot Bugs & Errors](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/whatsapp-bot-scanner.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/whatsapp-bot-scanner.yaml)
+[![Scan WhatsApp Bot Bugs & Errors](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/whatsapp-bot-scanner.yaml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/whatsapp-bot-scanner.yaml)
 
 Scan Bug & Error (Mode Deep):
 [![Detailed Bot Error & Bug Scanner](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml)
