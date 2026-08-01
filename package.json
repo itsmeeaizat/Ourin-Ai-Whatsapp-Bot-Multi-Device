@@ -6,8 +6,11 @@
   "scripts": {
     "start": "set NODE_ENV=development&& node index.js",
     "dev": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint plugins/"
+    "validate": "node scripts/validate-bot.js",
+    "fix-exports": "node scripts/fix-exports.js",
+    "check-exports": "node scripts/fix-exports.js --check",
+    "lint": "eslint src/ plugins/",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "whatsapp",
