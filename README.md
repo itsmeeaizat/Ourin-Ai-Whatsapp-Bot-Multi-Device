@@ -29,8 +29,8 @@ Scan Bug & Error (Mode Deep):
 [![Detailed Bot Error & Bug Scanner](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml)
 
 <!--START_SECTION:latest-update-->
-> 🔥 **Fitur/Update Terbaru:** ![Fitur Terbaru](https://img.shields.io/badge/Update-Add%20language%20badges%20to%20README-success?style=for-the-badge)
-> *Commit: "Add language badges to README"*
+> 🔥 **Fitur/Update Terbaru:** ![Fitur Terbaru](https://img.shields.io/badge/Update-Add%20files%20via%20upload-success?style=for-the-badge)
+> *Commit: "Add files via upload"*
 <!--END_SECTION:latest-update-->
 
 ---
