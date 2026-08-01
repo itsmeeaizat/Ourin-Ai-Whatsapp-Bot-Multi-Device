@@ -26,7 +26,7 @@ Scan Bug & Error:
 [![Scan WhatsApp Bot Bugs & Errors](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/whatsapp-bot-scanner.yml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/whatsapp-bot-scanner.yml)
 
 Scan Bug & Error (Mode Deep):
-[![Detailed Bot Error & Bug Scanner](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml)
+[![Detailed Bot Error & Bug Scanner](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yaml/badge.svg)](https://github.com/itsmeeaizat/Ourin-Ai-Whatsapp-Bot-Multi-Device/actions/workflows/detailed-scanner.yml)
 
 <!--START_SECTION:latest-update-->
 > 🔥 **Fitur/Update Terbaru:** ![Fitur Terbaru](https://img.shields.io/badge/Update-Add%20files%20via%20upload-success?style=for-the-badge)
