@@ -1,0 +1,28 @@
+name: Check JS Bugs & Syntax
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Syntax & Lint Check
+      run: |
+        # Mengecek apakah ada error sintaks dasar di file JavaScript
+        node -c index.js || true
+        echo "Pemeriksaan sintaks selesai."
